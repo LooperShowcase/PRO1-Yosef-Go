@@ -6,11 +6,10 @@
     <title>CYBERNETIC DATA ENTRY & RETRIEVAL</title>
 
     <style>
-        /* --- FUTURISTIC STYLES --- */
         :root {
-            --primary-color: #00ffff; /* Neon Cyan */
-            --background-color: #0d0e13; /* Deep Dark Blue/Black */
-            --accent-color: #ff00ff; /* Magenta Glow */
+            --primary-color: #00ffff; 
+            --background-color: #0d0e13; 
+            --accent-color: #ff00ff; 
             --font-family: 'Consolas', 'Courier New', monospace;
             --border-radius: 4px;
         }
@@ -37,52 +36,7 @@
             text-align: center;
         }
 
-        /* --- JUMPSCARE STYLES (UPDATED) --- */
-        #jumpscare {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: none; 
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            font-size: 15vw;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        
-        /* New Animation to cycle through colors */
-        @keyframes flash-colors {
-            0% { 
-                background-color: #ff0000; /* Red */
-                color: #000000; 
-                box-shadow: 0 0 50px #ff0000;
-            }
-            33% { 
-                background-color: #00ff00; /* Green */
-                color: #0d0e13; 
-                box-shadow: 0 0 50px #00ff00;
-            }
-            66% { 
-                background-color: #0000ff; /* Blue */
-                color: #ffffff; 
-                box-shadow: 0 0 50px #0000ff;
-            }
-            100% { 
-                background-color: #ff00ff; /* Magenta */
-                color: #0d0e13; 
-                box-shadow: 0 0 50px #ff00ff;
-            }
-        }
-        
-        /* Apply the animation when the jumpscare is active (display: flex) */
-        #jumpscare.active {
-            animation: flash-colors 0.5s infinite alternate; /* Fast, repeating color cycle */
-        }
-        
-        /* --- FORM & DISPLAY STYLES (Retained) --- */
+        /* FORM & DISPLAY STYLES */
         #data-entry-form {
             background-color: rgba(0, 0, 0, 0.6);
             border: 1px solid var(--accent-color);
@@ -187,8 +141,6 @@
     </style>
 </head>
 <body>
-    
-    <div id="jumpscare">BOO!</div>
 
     <h1>:: DATA INPUT TERMINAL ::</h1>
 
@@ -218,37 +170,16 @@
     </div>
     
     <script>
-        
-        // --- JUMPSCARE LOGIC (UPDATED) ---
-        const jumpscare = document.getElementById('jumpscare');
-        
-        function triggerJumpscare() {
-            // 1. Show the element and add the 'active' class to start the color animation
-            jumpscare.style.display = 'flex';
-            jumpscare.classList.add('active'); 
-            
-            // 2. Hide it after 1000 milliseconds (1 second)
-            setTimeout(() => {
-                jumpscare.style.display = 'none';
-                jumpscare.classList.remove('active'); // Remove class to stop animation
-            }, 1000); // Jumpscare duration is now 1 second
-        }
-
-        // Set the jumpscare to run every 5000 milliseconds (5 seconds)
-        const jumpscareTimer = setInterval(triggerJumpscare, 5000); 
-
-
-        // --- DATA LOGIC (Retained) ---
         function renderData(data) {
              document.getElementById('people').innerHTML = `
-                <h1 title="User Name"><span style="color:var(--accent-color);">[NAME]</span>: <strong>${data.name}</strong></h1>
-                <h1 title="Contact Email"><span style="color:var(--accent-color);">[EMAIL]</span>: <strong>${data.email}</strong></h1>
-                <h1 title="Chronological Age"><span style="color:var(--accent-color);">[AGE]</span>: <strong>${data.age}</strong></h1>
-                <h1 title="System Location"><span style="color:var(--accent-color);">[CITY]</span>: <strong>${data.city}</strong></h1>
+                <h1><span style="color:var(--accent-color);">[NAME]</span>: <strong>${data.name}</strong></h1>
+                <h1><span style="color:var(--accent-color);">[EMAIL]</span>: <strong>${data.email}</strong></h1>
+                <h1><span style="color:var(--accent-color);">[AGE]</span>: <strong>${data.age}</strong></h1>
+                <h1><span style="color:var(--accent-color);">[CITY]</span>: <strong>${data.city}</strong></h1>
             `;
         }
 
-        // 1. Load Data from Server (Initial Load)
+        // Load Data from Server
         fetch('/api/data')
          .then((res) => {
             if (!res.ok) {
@@ -262,8 +193,7 @@
           console.error('Error:', error);
         });
 
-
-        // 2. Handle Form Submission (User Input)
+        // Form Submission
         const form = document.getElementById('data-entry-form');
         form.addEventListener('submit', (event) => {
             event.preventDefault();
@@ -276,7 +206,6 @@
             renderData(userData);
             form.reset();
         });
-    
     </script>
 </body>
 </html>
