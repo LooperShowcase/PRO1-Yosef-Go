@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CYBERNETIC DATA ENTRY & RETRIEVAL</title>
+
+    <style>
+        /* --- FUTURISTIC STYLES --- */
+        :root {
+            --primary-color: #00ffff; /* Neon Cyan */
+            --background-color: #0d0e13; /* Deep Dark Blue/Black */
+            --accent-color: #ff00ff; /* Magenta Glow */
+            --font-family: 'Consolas', 'Courier New', monospace;
+            --border-radius: 4px;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--primary-color);
+            font-family: var(--font-family);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px var(--accent-color), 0 0 10px var(--accent-color);
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* --- JUMPSCARE STYLES (UPDATED) --- */
+        #jumpscare {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            font-size: 15vw;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        /* New Animation to cycle through colors */
+        @keyframes flash-colors {
+            0% { 
+                background-color: #ff0000; /* Red */
+                color: #000000; 
+                box-shadow: 0 0 50px #ff0000;
+            }
+            33% { 
+                background-color: #00ff00; /* Green */
+                color: #0d0e13; 
+                box-shadow: 0 0 50px #00ff00;
+            }
+            66% { 
+                background-color: #0000ff; /* Blue */
+                color: #ffffff; 
+                box-shadow: 0 0 50px #0000ff;
+            }
+            100% { 
+                background-color: #ff00ff; /* Magenta */
+                color: #0d0e13; 
+                box-shadow: 0 0 50px #ff00ff;
+            }
+        }
+        
+        /* Apply the animation when the jumpscare is active (display: flex) */
+        #jumpscare.active {
+            animation: flash-colors 0.5s infinite alternate; /* Fast, repeating color cycle */
+        }
+        
+        /* --- FORM & DISPLAY STYLES (Retained) --- */
+        #data-entry-form {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--accent-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 10px var(--accent-color);
+            width: 400px;
+            transform: skewX(2deg);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            transform: skewX(-2deg);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+
+        input[type="text"], input[type="email"], input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--primary-color);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: var(--primary-color);
+            font-family: var(--font-family);
+            border-radius: 2px;
+            box-shadow: inset 0 0 5px var(--primary-color);
+            outline: none;
+        }
+
+        input:focus {
+            border-color: var(--accent-color);
+            box-shadow: inset 0 0 8px var(--accent-color), 0 0 5px var(--accent-color);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: var(--accent-color);
+            color: var(--background-color);
+            border: none;
+            border-radius: 2px;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--accent-color);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        button:hover {
+            background-color: var(--primary-color);
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+        
+        #people {
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            min-width: 400px;
+            box-shadow: 0 0 15px var(--primary-color);
+            background-image: linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 100% 50px;
+            transform: skewX(-2deg);
+            animation: pulse-glow 4s infinite alternate;
+        }
+
+        #people h1 {
+            color: var(--primary-color);
+            font-size: 1.1em;
+            margin: 10px 0;
+            padding-left: 10px;
+            border-left: 3px solid var(--primary-color);
+            letter-spacing: 1px;
+            text-shadow: none;
+            transform: skewX(2deg);
+        }
+        
+        #people h1 strong {
+            color: var(--accent-color);
+            text-shadow: 0 0 3px var(--accent-color);
+            font-weight: normal;
+        }
+
+        .error-message {
+            color: #ff4500;
+            text-shadow: 0 0 8px #ff4500;
+            font-size: 1.5em;
+        }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 15px var(--primary-color); }
+            50% { box-shadow: 0 0 25px var(--primary-color), 0 0 5px var(--accent-color); }
+            100% { box-shadow: 0 0 15px var(--primary-color); }
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="jumpscare">BOO!</div>
+
+    <h1>:: DATA INPUT TERMINAL ::</h1>
+
+    <form id="data-entry-form">
+        <div class="form-group">
+            <label for="input-name">Name</label>
+            <input type="text" id="input-name" required>
+        </div>
+        <div class="form-group">
+            <label for="input-email">Email</label>
+            <input type="email" id="input-email" required>
+        </div>
+        <div class="form-group">
+            <label for="input-age">Age</label>
+            <input type="number" id="input-age" required>
+        </div>
+        <div class="form-group">
+            <label for="input-city">City</label>
+            <input type="text" id="input-city" required>
+        </div>
+        <button type="submit">SYNCHRONIZE DATA</button>
+    </form>
+
+    <h1>:: RETRIEVED DATA BLOCK ::</h1>
+    <div id='people'>
+        <h1 style="text-align: center;">...Initializing Data Retrieval...</h1>
+    </div>
+    
+    <script>
+        
+        // --- JUMPSCARE LOGIC (UPDATED) ---
+        const jumpscare = document.getElementById('jumpscare');
+        
+        function triggerJumpscare() {
+            // 1. Show the element and add the 'active' class to start the color animation
+            jumpscare.style.display = 'flex';
+            jumpscare.classList.add('active'); 
+            
+            // 2. Hide it after 1000 milliseconds (1 second)
+            setTimeout(() => {
+                jumpscare.style.display = 'none';
+                jumpscare.classList.remove('active'); // Remove class to stop animation
+            }, 1000); // Jumpscare duration is now 1 second
+        }
+
+        // Set the jumpscare to run every 5000 milliseconds (5 seconds)
+        const jumpscareTimer = setInterval(triggerJumpscare, 5000); 
+
+
+        // --- DATA LOGIC (Retained) ---
+        function renderData(data) {
+             document.getElementById('people').innerHTML = `
+                <h1 title="User Name"><span style="color:var(--accent-color);">[NAME]</span>: <strong>${data.name}</strong></h1>
+                <h1 title="Contact Email"><span style="color:var(--accent-color);">[EMAIL]</span>: <strong>${data.email}</strong></h1>
+                <h1 title="Chronological Age"><span style="color:var(--accent-color);">[AGE]</span>: <strong>${data.age}</strong></h1>
+                <h1 title="System Location"><span style="color:var(--accent-color);">[CITY]</span>: <strong>${data.city}</strong></h1>
+            `;
+        }
+
+        // 1. Load Data from Server (Initial Load)
+        fetch('/api/data')
+         .then((res) => {
+            if (!res.ok) {
+                throw new Error(`HTTP error! status: ${res.status}`);
+            }
+            return res.json();
+         })
+         .then(renderData)
+        .catch((error) => {
+          document.getElementById('people').innerHTML = `<div class='error-message'>ERROR: Connection Failure | Status: ${error.message || 'Unknown'}</div>`;
+          console.error('Error:', error);
+        });
+
+
+        // 2. Handle Form Submission (User Input)
+        const form = document.getElementById('data-entry-form');
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const userData = {
+                name: document.getElementById('input-name').value,
+                email: document.getElementById('input-email').value,
+                age: document.getElementById('input-age').value,
+                city: document.getElementById('input-city').value,
+            };
+            renderData(userData);
+            form.reset();
+        });
+    
+    </script>
+</body>
+</html>

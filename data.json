@@ -1,0 +1,53 @@
+{
+  "people": [
+    {
+      "id": 1,
+      "name": "Evelyn Reed",
+      "email": "evelyn.r@example.com",
+      "age": 45,
+      "city": "Austin"
+    },
+    {
+      "id": 2,
+      "name": "Marcus Chen",
+      "email": "marcus_c@webmail.net",
+      "age": 28,
+      "city": "San Francisco"
+    },
+    {
+      "id": 3,
+      "name": "Sofia Bell",
+      "email": "s.bell.sofia@corpmail.com",
+      "age": 32,
+      "city": "Miami"
+    },
+    {
+      "id": 4,
+      "name": "David Miller",
+      "email": "dmiller_77@inbox.org",
+      "age": 59,
+      "city": "Chicago"
+    },
+    {
+      "id": 5,
+      "name": "Lena Petrova",
+      "email": "lena.petrova@mailservice.co",
+      "age": 21,
+      "city": "Denver"
+    },
+    {
+      "id": 6,
+      "name": "Omar Hassan",
+      "email": "omar.hassan@testdata.io",
+      "age": 40,
+      "city": "Toronto"
+    },
+    {
+      "id": 7,
+      "name": "Chloe Wong",
+      "email": "chloe_w@example.com",
+      "age": 25,
+      "city": "Seattle"
+    }
+  ]
+}
